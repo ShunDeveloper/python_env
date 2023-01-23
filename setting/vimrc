@@ -1,4 +1,12 @@
 " setting
+call plug#begin()
+  Plug 'tpope/vim-sensible'
+  Plug 'preservim/nerdtree'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'ryanoasis/nerd-fonts'
+  Plug 'tpope/vim-commentary'
+call plug#end()
+
 "文字コードをUFT-8に設定
 set fenc=utf-8
 " バックアップファイルを作らない
@@ -11,7 +19,16 @@ set autoread
 set hidden
 " 入力中のコマンドをステータスに表示する
 set showcmd
-
+"タブ、空白、改行を可視化
+set list
+"編集中ファイル名の表示
+set title
+"ステータスを表示
+set laststatus=2
+" copyしたときはclipboardを使用する
+set clipboard+=unnamed
+" ignore vi
+set nocompatible
 
 " 見た目系
 " 行番号を表示
@@ -24,6 +41,8 @@ set cursorcolumn
 set virtualedit=onemore
 " インデントはスマートインデント
 set smartindent
+" autoindent
+set autoindent
 " ビープ音を可視化
 set visualbell
 " 括弧入力時の対応する括弧を表示
@@ -38,6 +57,9 @@ nnoremap k gk
 " シンタックスハイライトの有効化
 syntax enable
 colorscheme monokai
+
+" nerd tree
+map <C-n> :NERDTreeToggle<CR>
 
 " Tab系
 " 不可視文字を可視化(タブが「▸-」と表示される)
