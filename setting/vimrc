@@ -2,11 +2,13 @@
 call plug#begin()
   Plug 'tpope/vim-sensible'
   Plug 'preservim/nerdtree'
-  Plug 'ryanoasis/vim-devicons'
   Plug 'ryanoasis/nerd-fonts'
+  Plug 'ryanoasis/vim-devicons'
   Plug 'tpope/vim-commentary'
 call plug#end()
 
+" encoding
+set encoding=UTF-8
 "文字コードをUFT-8に設定
 set fenc=utf-8
 " バックアップファイルを作らない
@@ -60,7 +62,17 @@ colorscheme monokai
 
 " nerd tree
 map <C-n> :NERDTreeToggle<CR>
+" guifontを設定しないと文字化けになる。terminalで行ったフォントの設定と同様
+" 公式サイトではLinuxとmacOSの設定が若干異なるが、Linuxの設定でもmacOSで問題なし
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 12
 
+" フォルダアイコンを表示
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+" after a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+  call webdevicons#refresh()
+endif
 " Tab系
 " 不可視文字を可視化(タブが「▸-」と表示される)
 set list listchars=tab:\▸\-
