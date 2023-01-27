@@ -4,6 +4,9 @@ call plug#begin()
   Plug 'preservim/nerdtree'
   Plug 'ryanoasis/nerd-fonts'
   Plug 'ryanoasis/vim-devicons'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'lambdalisue/glyph-palette.vim'
   Plug 'tpope/vim-commentary'
 call plug#end()
 
@@ -73,6 +76,36 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 if exists('g:loaded_webdevicons')
   call webdevicons#refresh()
 endif
+" アイコンに色をつける
+augroup my-glyph-palette
+  autocmd! *
+  autocmd FileType nerdtree call glyph_palette#apply()
+  autocmd FileType nerdtree,startify call glyph_palette#apply()
+augroup END
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+" ステータスラインに表示する項目を変更する
+let g:airline#extensions#default#layout = [
+  \ [ 'a', 'b', 'c' ],
+  \ ['z']
+  \ ]
+let g:airline_section_c = '%t %M'
+let g:airline_section_z = get(g:, 'airline_linecolumn_prefix', '').'%3l:%-2v'
+" 変更がなければdiffの行数を表示しない
+let g:airline#extensions#hunks#non_zero_only = 1
+
+" タブラインの表示を変更する
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline_theme = 'base16_monokai'
+
+
 " Tab系
 " 不可視文字を可視化(タブが「▸-」と表示される)
 set list listchars=tab:\▸\-
@@ -82,7 +115,9 @@ set expandtab
 set tabstop=2
 " 行頭でのTab文字の表示幅
 set shiftwidth=2
-
+" number of space for tab
+set expandtab
+retab 
 
 " 検索系
 " 検索文字列が小文字の場合は大文字小文字を区別なく検索する
